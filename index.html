@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        height: 100vh;
+        width: 100vw;
+        /* overflow: hidden; */
+      }
+      model-viewer {
+        border: 2px solid red;
+        /* outline: 2px solid red; */
+        width: 500px;
+        height: 400px;
+        margin: 0 auto;
+      }
+      .flex {
+        display: flex;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Import the component -->
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <div class="flex">
+      <model-viewer
+        alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+        src="./ford-bronco-horizon/source/Ford Bronco Horizon .glb"
+        camera-controls
+        auto-rotate
+      ></model-viewer>
+      <model-viewer
+        alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+        src="./assets/Ford Bronco Horizon .glb"
+        camera-controls
+      ></model-viewer>
+    </div>
+  </body>
+</html>
+<!-- environment-image="shared-assets/environments/moon_1k.hdr" -->
+<!-- src="shared-assets/models/NeilArmstrong.glb" -->
+<!-- poster="shared-assets/models/NeilArmstrong.webp" -->
+<!-- src="./Ford Bronco Horizon .glb" -->
