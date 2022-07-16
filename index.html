@@ -18,12 +18,12 @@
       model-viewer {
         border: 2px solid red;
         /* outline: 2px solid red; */
-        width: 500px;
-        height: 400px;
+        min-width: 500px;
+        min-height: 400px;
         margin: 0 auto;
       }
       .flex {
-        display: flex;
+        /* display: flex; */
       }
     </style>
   </head>
@@ -37,14 +37,14 @@
     <div class="flex">
       <model-viewer
         alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-        src="./ford-bronco-horizon/source/Ford Bronco Horizon .glb"
+        src="./Ford Bronco Horizon .glb"
         camera-controls
-        auto-rotate
       ></model-viewer>
       <model-viewer
         alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-        src="./Ford Bronco Horizon .glb"
+        src="./ford-bronco-horizon/source/Ford Bronco Horizon .glb"
         camera-controls
+        auto-rotate
       ></model-viewer>
     </div>
   </body>
