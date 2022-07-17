@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+      body {
+        height: 100vh;
+        width: 100vw;
+        /* overflow: hidden; */
+      }
+      model-viewer {
+        border: 2px solid red;
+        /* outline: 2px solid red; */
+        min-width: 500px;
+        min-height: 400px;
+        width: 90vw;
+        height: 90vh;
+        margin: 0 auto;
+      }
+      model-viewer#reveal {
+        --poster-color: aqua;
+      }
+      #lazy-load-poster {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-image: url("./imsamad.jfif");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+      #button-load {
+        /* background-image: url("../../assets/ic_get_app_white_24dp.svg"); */
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+        background-position: 6% 50%;
+        background-color: #000;
+        color: white;
+        cursor: pointer;
+        border-radius: 6px;
+        display: inline-block;
+        padding: 10px 18px 9px 40px;
+        font-weight: 500;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2), 0 0 4px rgba(0, 0, 0, 0.25);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate3d(-50%, -50%, 0);
+        z-index: 100;
+      }
+      .flex {
+        /* display: flex; */
+      }
+      #progressBar {
+        background-color: aqua;
+        height: 10px;
+        width: 100%;
+      }
+      .view-button {
+        background: #fff;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+        color: rgba(0, 0, 0, 0.8);
+        display: block;
+        font-family: Futura, Helvetica Neue, sans-serif;
+        font-size: 12px;
+        font-weight: 700;
+        max-width: 128px;
+        overflow-wrap: break-word;
+        padding: 0.5em 1em;
+        position: absolute;
+        width: max-content;
+        height: max-content;
+        transform: translate3d(-50%, -50%, 0);
+      }
+    </style>
+  </head>
+
+  <body>
+    <script
+      type="module"
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+    ></script>
+    <div class="flex">
+      <!-- poster="./tr.png" -->
+      <!-- auto-rotate auto-rotate-delay="60" -->
+      <model-viewer
+        src="./Ford Bronco Horizon .glb"
+        camera-controls
+        enable-pan
+        camera-orbit="90deg 90deg 111m"
+        shadow-intensity="1"
+        ar
+        ar-scale="fixed"
+        ar-modes="webxr scene-viewer quick-look"
+        ar-placement="floor"
+        style="background-color: rgba(0, 0, 0, 0.2)"
+      >
+        <button
+          class="view-button"
+          slot="hotspot-0"
+          data-position="-0.0569m 0.0969m -0.1398m"
+          data-normal="-0.5829775m 0.2863482m -0.7603565m"
+          data-orbit="-50.94862deg 84.56856deg 0.06545582m"
+          data-target="-0.04384604m 0.07348397m -0.1213202m"
+        >
+          The Fighters
+        </button>
+        <!-- <div id="error" class="hide">AR is not supported on this device</div> -->
+        <!-- <button
+          slot="ar-button"
+          style="
+            background-color: white;
+            border-radius: 4px;
+            border: none;
+            position: absolute;
+            top: 16px;
+            right: 16px;
+          "
+        >
+          👋 Activate AR
+        </button> -->
+        <!-- <div id="lazy-load-poster" slot="poster"></div>
+        <div id="button-load" slot="poster">Load 3D Model</div> -->
+      </model-viewer>
+    </div>
+    <script type="module">
+      const modelViewer1 = document.querySelector("#hotspot-camera-view-demo");
+      const annotationClicked = (annotation) => {
+        let dataset = annotation.dataset;
+        modelViewer1.cameraTarget = dataset.target;
+        modelViewer1.cameraOrbit = dataset.orbit;
+        modelViewer1.fieldOfView = "45deg";
+      };
+
+      modelViewer1.querySelectorAll("button").forEach((hotspot) => {
+        console.log("hello hotspot", hotspot);
+        hotspot.addEventListener("click", () => annotationClicked(hotspot));
+      });
+    </script>
+  </body>
+</html>
+<!-- environment-image="shared-assets/environments/moon_1k.hdr" -->
+<!-- src="shared-assets/models/NeilArmstrong.glb" -->
+<!-- poster="shared-assets/models/NeilArmstrong.webp" -->
+<!-- src="./Ford Bronco Horizon .glb" -->
+<!-- <model-viewer
+alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+src="./ford-bronco-horizon/source/Ford Bronco Horizon .glb"
+camera-controls
+auto-rotate
+></model-viewer> -->
+<!-- skybox-image="./imsamad.jfif" -->
