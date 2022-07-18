@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
       #controls {
         position: absolute;
         bottom: 16px;
@@ -55,8 +59,8 @@
         display: none;
       }
       model-viewer {
-        width: 600px;
-        height: 90vh;
+        /* width: 600px;
+        height: 90vh; */
         margin: auto;
       }
       .show-dim {
@@ -78,13 +82,43 @@
   <body>
     <div class="show-dim"></div>
 
-    <div style="margin: 10px 0">
+    <!-- <div style="margin: 10px 0">
       <div class="dot"></div>
       <div class="dim"></div>
-    </div>
+    </div> -->
     <!-- 
       camera-orbit="-30deg auto auto"
       max-camera-orbit="auto 100deg auto" -->
+    <model-viewer
+      id="one"
+      ar
+      ar-modes="webxr"
+      ar-scale="fixed"
+      shadow-intensity="1"
+      camera-controls
+      src="./shared-assets/models/cubes.gltf"
+      alt="A 3D model of an armchair."
+    ></model-viewer>
+    <model-viewer
+      id="two"
+      ar
+      ar-modes="webxr"
+      ar-scale="fixed"
+      shadow-intensity="1"
+      camera-controls
+      src="./shared-assets/models/Astronaut.glb"
+      alt="A 3D model of an armchair."
+    ></model-viewer>
+    <model-viewer
+      id="three"
+      ar
+      ar-modes="webxr"
+      ar-scale="fixed"
+      shadow-intensity="1"
+      camera-controls
+      src="./assets/gbl/ruubik2.glb"
+      alt="A 3D model of an armchair."
+    ></model-viewer>
     <model-viewer
       id="dimension-demo"
       ar
@@ -192,10 +226,18 @@
     <script type="module">
       const modelViewer = document.querySelector("#dimension-demo");
       const showDim = document.querySelector(".show-dim");
+
+      const mvs = document.querySelectorAll("model-viewer");
+
       function fillDim() {
-        const center = modelViewer.getCameraTarget();
-        const size = modelViewer.getDimensions();
-        let str = `
+        showDim.innerHTML = "";
+        const fill = (mv, label) => {
+          const center = mv.getCameraTarget();
+          const size = mv.getDimensions();
+          let str = `
+        <form>
+        <fieldset style="padding:4px;" >
+        <legend>${label}</legend>
         <h3>Size.x - ${size.x}</h3>
         <h3>Size.y - ${size.y}</h3>
         <h3>Size.x - ${size.x}</h3>
@@ -203,10 +245,19 @@
         <h3>center.x - ${center.x}</h3>
         <h3>center.y - ${center.y}</h3>
         <h3>center.x - ${center.x}</h3>
+        </fieldset>
+        </form>
         `;
-        showDim.innerHTML = str;
+          showDim.innerHTML += str;
+        };
+        mvs.forEach((mv, index) => {
+          fill(mv, index + 1, true);
+        });
       }
-      window.addEventListener("resize", fillDim);
+
+      window.addEventListener("resize", () => {
+        fillDim();
+      });
       modelViewer.querySelector("#src").addEventListener("input", (event) => {
         modelViewer.src = event.target.value;
       });
@@ -226,12 +277,8 @@
         const center = modelViewer.getCameraTarget();
         const size = modelViewer.getDimensions();
         fillDim();
-        // console.log("keys in model-viewer ",
-        // Object.keys(modelViewer).forEach((k) => {
-        //   console.log(k, " =>", modelViewer[k]);
-        // });
-        // );
-        console.log({ size, center });
+
+        // console.log({ size, center });
         const x2 = size.x / 2;
         const y2 = size.y / 2;
         const z2 = size.z / 2;
@@ -309,6 +356,11 @@
       modelViewer.addEventListener("click", function (e) {
         console.log(`click `, e);
       });
+    </script>
+    <script>
+      const oneMV = document.querySelector("#one"),
+        twoMV = document.querySelector("#two"),
+        threeMV = document.querySelector("#three");
     </script>
   </body>
 </html>
