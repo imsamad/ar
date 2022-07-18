@@ -68,6 +68,8 @@
       loading="eager"
       camera-controls
       enable-pan
+      camera-orbit="0deg 75deg 105%"
+      camera-target="0m 1m 0"
     ></model-viewer>
     <div class="box"></div>
     <script>
@@ -85,6 +87,7 @@
         console.log("load ", e);
       });
       console.log(self.ModelViewerElement);
+      // console.log(`env(window-scroll-y)`, env(window - scroll - y));
     </script>
   </body>
 </html>
