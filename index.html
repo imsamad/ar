@@ -5,51 +5,66 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      * {
-        padding: 0;
-        margin: 0;
-      }
-      body {
-        height: 100vh;
-        width: 100vw;
-        /* overflow: hidden; */
-      }
-      model-viewer {
-        border: 2px solid red;
-        /* outline: 2px solid red; */
-        min-width: 500px;
-        min-height: 400px;
-        margin: 0 auto;
-      }
-      .flex {
-        /* display: flex; */
-      }
-    </style>
   </head>
-
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      max-width: 100vw;
+      min-height: 100vh;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+    model-viewer {
+      border: 2px solid aqua;
+      max-width: 400px;
+      height: 300px;
+      margin: auto;
+    }
+    .box {
+      width: 100vw;
+      height: 80vh;
+    }
+  </style>
+  <script
+    type="module"
+    src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+  ></script>
   <body>
-    <!-- Import the component -->
-    <script
-      type="module"
-      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
-    ></script>
-    <div class="flex">
-      <model-viewer
-        alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-        src="./Ford Bronco Horizon .glb"
-        camera-controls
-      ></model-viewer>
-      <model-viewer
-        alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
-        src="./ford-bronco-horizon/source/Ford Bronco Horizon .glb"
-        camera-controls
-        auto-rotate
-      ></model-viewer>
-    </div>
+    <h2 style="text-align: center; margin: 10px 0">Model Viewer</h2>
+    <div class="box"></div>
+    <model-viewer
+      alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+      src="shared-assets/models/NeilArmstrong.glb"
+      poster="shared-assets/models/NeilArmstrong.webp"
+      seamless-poster
+      loading="eager"
+      camera-controls
+      touch-action="pan-x"
+      enable-pan
+    ></model-viewer>
+    <model-viewer
+      alt="Neil Armstrong's Spacesuit from the Smithsonian Digitization Programs Office and National Air and Space Museum"
+      src="shared-assets/models/NeilArmstrong.glb"
+      poster="shared-assets/models/NeilArmstrong.webp"
+      seamless-poster
+      loading="eager"
+      camera-controls
+      enable-pan
+    ></model-viewer>
+    <div class="box"></div>
+    <script>
+      const mv = document.querySelector("model-viewer");
+      mv.addEventListener("model-visibility", function (e) {
+        console.log("model-visibility");
+      });
+      mv.addEventListener("loaded", function (e) {
+        console.log(`loaded`);
+      });
+      console.log(self.ModelViewerElement);
+    </script>
   </body>
 </html>
-<!-- environment-image="shared-assets/environments/moon_1k.hdr" -->
-<!-- src="shared-assets/models/NeilArmstrong.glb" -->
-<!-- poster="shared-assets/models/NeilArmstrong.webp" -->
-<!-- src="./Ford Bronco Horizon .glb" -->
