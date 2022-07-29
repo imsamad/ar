@@ -52,7 +52,7 @@
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
   ></script>
   <style>
-    .model {
+    .dialogModel {
       padding: 2rem;
       width: 200px;
       position: fixed;
@@ -63,21 +63,31 @@
       transform: translateX(200vw);
     }
 
-    .model.active {
+    .dialogModel.active {
       transform: translateX(0) translateY(0);
     }
-    .model button {
+    .dialogModel button {
       margin: 1rem;
       padding: 0.4rem 0.6rem;
       border: 1px solid red;
     }
+    .customiseArBtn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+    }
+    .arBtn {
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
   </style>
   <body>
-    <div class="model" id="dialogModel">
+    <div class="dialogModel" id="dialogModel">
       <button class="cancel" id="cancel">Cancel</button>
-
       <button class="save" id="allow">Allow</button>
     </div>
+
     <h2>Model 0</h2>
     <model-viewer
       id="model1"
@@ -90,55 +100,28 @@
       ios-src="./shared-assets/models/Astronaut.usdz"
       xr-environment
     >
-      <button
-        id="arBtn"
-        className="arBtn customiseBtn"
-        style="position: absolute; right: 0"
-      >
+      <button id="customiseArBtn" class="customiseArBtn">
         👋 Customise AR
       </button>
-      <button slot="ar-button" className="arBtn">👋 Activate AR</button>
+      <!-- <button slot="ar-button" class="arBtn">👋 Activate AR</button> -->
     </model-viewer>
-    <hr />
-    <h2>Model 1</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      skybox-image="./shared-assets/environments/aircraft_workshop_01_1k.hdr"
-      xr-environment
-    ></model-viewer>
-    <hr />
-    <h2>Model 2</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      skybox-image="./shared-assets/environments/aircraft_workshop_01_1k.hdr"
-      ios-src="./shared-assets/models/Astronaut.usdz"
-    ></model-viewer>
-    <hr />
-    <h2>Model 3</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      ios-src="./shared-assets/models/Astronaut.usdz"
-    ></model-viewer>
+
     <script>
       const model1 = document.getElementById("model1"),
-        arBtn = document.getElementById("arBtn"),
+        customiseArBtn = document.getElementById("customiseArBtn"),
         dialogModel = document.getElementById("dialogModel"),
         allowBtn = document.getElementById("allow");
       cancelBtn = document.getElementById("cancel");
 
-      arBtn.addEventListener("click", () => {
+      model1.addEventListener("load", (e) => {
+        const canActivateAR = e.target.canActivateAR;
+
+        if (!canActivateAR) {
+          customiseArBtn.style.display = "none";
+        }
+      });
+
+      customiseArBtn.addEventListener("click", () => {
         // model1.activateAR();
         dialogModel.classList.add("active");
       });
