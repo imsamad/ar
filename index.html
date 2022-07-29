@@ -25,6 +25,14 @@
       height: 300px;
       margin: auto;
     }
+    .arBtn {
+      background-color: white;
+      border-radius: 4px;
+      border: none;
+      position: absolute;
+      bottom: 16px;
+      right: 16px;
+    }
   </style>
   <script>
     window.ga =
@@ -43,9 +51,36 @@
     type="module"
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
   ></script>
+  <style>
+    .model {
+      padding: 2rem;
+      width: 200px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      z-index: 100;
+      background-color: wheat;
+      transform: translateX(200vw);
+    }
+
+    .model.active {
+      transform: translateX(0) translateY(0);
+    }
+    .model button {
+      margin: 1rem;
+      padding: 0.4rem 0.6rem;
+      border: 1px solid red;
+    }
+  </style>
   <body>
+    <div class="model" id="dialogModel">
+      <button class="cancel" id="cancel">Cancel</button>
+
+      <button class="save" id="allow">Allow</button>
+    </div>
     <h2>Model 0</h2>
     <model-viewer
+      id="model1"
       src="./shared-assets/models/Astronaut.glb"
       ar
       ar-scale="fixed"
@@ -54,7 +89,11 @@
       skybox-image="./shared-assets/environments/aircraft_workshop_01_1k.hdr"
       ios-src="./shared-assets/models/Astronaut.usdz"
       xr-environment
-    ></model-viewer>
+    >
+      <button slot="ar-button" id="arBtn" className="arBtn">
+        👋 Activate AR
+      </button>
+    </model-viewer>
     <hr />
     <h2>Model 1</h2>
     <model-viewer
@@ -87,5 +126,19 @@
       alt="A 3D model of an astronaut"
       ios-src="./shared-assets/models/Astronaut.usdz"
     ></model-viewer>
+    <script>
+      const model1 = document.getElementById("model1"),
+        arBtn = document.getElementById("arBtn"),
+        dialogModel = document.getElementById("dialogModel"),
+        allowBtn = document.getElementById("allow");
+
+      arBtn.addEventListener("click", () => {
+        // model1.activateAR();
+        dialogModel.classList.add("active");
+      });
+      allowBtn.addEventListener("click", () => {
+        model1.activateAR();
+      });
+    </script>
   </body>
 </html>
