@@ -90,9 +90,14 @@
       ios-src="./shared-assets/models/Astronaut.usdz"
       xr-environment
     >
-      <button slot="ar-button" id="arBtn" className="arBtn">
-        👋 Activate AR
+      <button
+        id="arBtn"
+        className="arBtn customiseBtn"
+        style="position: absolute; right: 0"
+      >
+        👋 Customise AR
       </button>
+      <button slot="ar-button" className="arBtn">👋 Activate AR</button>
     </model-viewer>
     <hr />
     <h2>Model 1</h2>
