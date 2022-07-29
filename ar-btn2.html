@@ -113,19 +113,14 @@
       cancelBtn = document.getElementById("cancel");
 
       model1.addEventListener("load", (e) => {
-        const arBtns = document.getElementsByClassName("customiseArBtn");
-        console.log("arBtns ", arBtns);
         console.log("load0");
         const canActivateAR = e.target.canActivateAR;
 
         if (!canActivateAR) {
-          arBtns.map((btn) => {
-            btn.styles.display = "none";
-          });
+          customiseArBtn.style.display = "none";
         }
-        console.log("canActivateAR ", e.target.canActivateAR);
       });
-      arBtn.addEventListener("click", () => {
+      customiseArBtn.addEventListener("click", () => {
         // model1.activateAR();
         dialogModel.classList.add("active");
       });
