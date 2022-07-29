@@ -88,7 +88,6 @@
 
       <button class="save" id="allow">Allow</button>
     </div>
-    <h2>Model 0</h2>
     <model-viewer
       id="model1"
       src="./shared-assets/models/Astronaut.glb"
@@ -105,38 +104,7 @@
       </button>
       <!-- <button slot="ar-button" class="arBtn">👋 Activate AR</button> -->
     </model-viewer>
-    <hr />
-    <h2>Model 1</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      skybox-image="./shared-assets/environments/aircraft_workshop_01_1k.hdr"
-      xr-environment
-    ></model-viewer>
-    <hr />
-    <h2>Model 2</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      skybox-image="./shared-assets/environments/aircraft_workshop_01_1k.hdr"
-      ios-src="./shared-assets/models/Astronaut.usdz"
-    ></model-viewer>
-    <hr />
-    <h2>Model 3</h2>
-    <model-viewer
-      src="./shared-assets/models/Astronaut.glb"
-      ar
-      ar-scale="fixed"
-      camera-controls
-      alt="A 3D model of an astronaut"
-      ios-src="./shared-assets/models/Astronaut.usdz"
-    ></model-viewer>
+
     <script>
       const model1 = document.getElementById("model1"),
         customiseArBtn = document.getElementById("customiseArBtn"),
