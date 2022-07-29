@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hot</title>
+    <script type="module" src="./js.js"></script>
+    <style>
+      #wrapper {
+        width: 50vw;
+        margin: auto;
+        padding: auto;
+        border: 2px solid red;
+      }
+      @media only screen and (max-width: 400px) {
+        #wrapper {
+          width: 98vw;
+          margin: auto;
+          padding: auto;
+          border: 2px solid red;
+        }
+      }
+      model-viewer {
+        width: 100%;
+        height: 60vh;
+        margin: auto;
+      }
+      /* Hotspot Style */
+      button {
+        display: block;
+        width: 20px;
+        height: 20px;
+        border-radius: 10px;
+        border: none;
+        background-color: blue;
+        box-sizing: border-box;
+      }
+
+      button[slot="hotspot-hand"] {
+        --min-hotspot-opacity: 0;
+        background-color: red;
+      }
+
+      button[slot="hotspot-foot"] :not([data-visible]) {
+        background-color: aqua;
+        border: 3px solid blue;
+      }
+
+      #annotation {
+        background-color: #888888;
+        position: absolute;
+        transform: translate(10px, 10px);
+        border-radius: 10px;
+        padding: 10px;
+      }
+      /* Hotspot Style End */
+      /* This keeps child nodes hidden while the element loads */
+      :not(:defined) > * {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <model-viewer
+        id="hotspot-demo-1"
+        ar
+        ar-modes="webxr"
+        camera-controls
+        src="./shared-assets/models/Astronaut.glb"
+        alt="A 3D model of an astronaut."
+      >
+        <button
+          slot="hotspot-visor"
+          data-position="0  1.0054235458374023 -0.006166502833366394"
+          data-normal="0 0 1"
+          style="background: aqua"
+        >
+          <h6>What is this!</h6>
+        </button>
+        <button
+          slot="hotspot-hand"
+          data-position="-0.54 0.93 0.1"
+          data-normal="-0.73 0.05 0.69"
+        >
+          <div id="annotation">This hotspot disappears completely</div>
+        </button>
+        <button
+          slot="hotspot-foot"
+          data-position="0.16 0.1 0.17"
+          data-normal="-0.07 0.97 0.23"
+          style="border: 4px solid green"
+        ></button>
+        <!-- <div id="annotation">This annotation is fixed in screen-space</div> -->
+      </model-viewer>
+    </div>
+    <script>
+      const mv1 = document.querySelector("#hotspot-demo-1");
+
+      mv1.addEventListener("model-visibility", function (e) {
+        const center = this.getCameraTarget();
+        const size = this.getDimensions();
+        // console.log({ type: "model-visibility", center, size });
+      });
+      mv1.addEventListener("load", function (e) {
+        const center = this.getCameraTarget();
+        const size = this.getDimensions();
+        // console.log({
+        //   type: "load",
+        //   center,
+        //   size,
+        //   toStringCenter: center.toString(),
+        //   toStringSize: size.toString(),
+        // });
+      });
+
+      mv1.addEventListener("click", function (e) {
+        // this.recenter(e);
+        console.log(e);
+        const width = e.clientX,
+          height = e.clientY;
+        console.log({ width, height });
+        // const hit = this.getHit(e.screen);
+        // console.log("getHit ", hit);
+        const cords = this.positionAndNormalFromPoint(width, height);
+        console.log("cords ", cords);
+      });
+      mv1.addEventListener("positionAndNormalFromPoint", (e) => {
+        console.log("positionAndNormalFromPoint ", e);
+      });
+    </script>
+  </body>
+</html>
