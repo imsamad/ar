@@ -131,13 +131,20 @@
         arBtn = document.getElementById("arBtn"),
         dialogModel = document.getElementById("dialogModel"),
         allowBtn = document.getElementById("allow");
+      cancelBtn = document.getElementById("cancel");
 
       arBtn.addEventListener("click", () => {
         // model1.activateAR();
         dialogModel.classList.add("active");
       });
+
       allowBtn.addEventListener("click", () => {
         model1.activateAR();
+        dialogModel.classList.remove("active");
+      });
+
+      cancelBtn.addEventListener("click", () => {
+        dialogModel.classList.remove("active");
       });
     </script>
   </body>
