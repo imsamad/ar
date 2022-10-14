@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      #__actuality__modelOpener {
+        padding: 1rem 2rem;
+        border-radius: 0.3rem;
+        border: 0;
+        outline: none;
+        color: #000;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        display: grid;
+        font-family: Inter, sans-serif !important;
+        place-items: center;
+        margin: auto;
+        cursor: pointer;
+        transition: all 0.3s; /* z-index: 1; */
+        background: #bdbdbd;
+        border-radius: 5px;
+        box-shadow: 0 8px 24px rgb(38 50 56 / 10%),
+          0 16px 32px rgb(38 50 56 / 8%) !important;
+        color: #fff !important;
+        font-weight: 700;
+        letter-spacing: 0.25px;
+        line-height: 36px;
+      }
+      #__actuality_iframeModal_container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        max-width: 100vw;
+        max-height: 100vh;
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden; /* z-index: 999999999; */
+        transform-origin: center;
+        transition: transform 0.5s;
+        border: 0px solid red;
+        transform: scale(0);
+        opacity: 0;
+        z-index: 0;
+        display: none;
+      }
+      #__actuality_iframeModal_container.show {
+        display: block;
+        transform: scale(1);
+        z-index: 2147483647;
+        opacity: 1;
+      }
+      body #__actuality_iframeModal_container.show {
+        overflow: hidden;
+      }
+      #__actuality_iframeModal_container iframe {
+        border: 0;
+        outline: none;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+    <div
+      style="
+        display: flex;
+        width: 400px;
+        margin: auto;
+        height: 50px;
+        margin-bottom: 1rem;
+        border: 0px solid red;
+      "
+      id="newButtons"
+    >
+      <button
+        id="__actuality__modelOpener_1"
+        style="
+          outline: none;
+          border: 2px solid #000;
+          background: white;
+          color: #000;
+          display: flex;
+          border-radius: 0;
+          box-shadow: none;
+          flex-grow: 0.5;
+          align-items: center;
+          height: 50px;
+        "
+      >
+        <img
+          src="https://actuality.live/icons/360.png"
+          alt=""
+          width="40"
+          height="30"
+          style="box-shadow: none; padding-left: 0.5rem; padding-right: 1rem"
+        />
+        <div
+          style="
+            color: rgba(0, 0, 0, 1);
+            box-shadow: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+          "
+        >
+          <div>View 360</div>
+          <div
+            style="
+              border: 0px solid red;
+              align-self: flex-start;
+              justify-self: flex-start;
+              display: flex;
+              align-items: flex-start;
+              margin-left: 0.1rem;
+            "
+          >
+            <div
+              style="
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                border: 1px solid #000;
+              "
+            ></div>
+          </div>
+        </div>
+      </button>
+      <button
+        id="__actuality__modelOpener_2"
+        style="
+          border: 0;
+          outline: none;
+          height: 50px;
+          border: 2px solid #000;
+          background: white;
+          color: #000;
+          display: inline-flex;
+          border-radius: 0;
+          box-shadow: none;
+          flex-grow: 0.5;
+          align-items: center;
+          margin-left: 0.3rem;
+        "
+      >
+        <img
+          src="https://actuality.live/icons/ar_icon.png"
+          alt=""
+          width="30"
+          height="30"
+          style="box-shadow: none; padding-left: 0.5rem; padding-right: 1rem"
+        />
+        <span
+          style="color: rgba(0, 0, 0, 1); box-shadow: none; font-weight: 600"
+        >
+          View In Your Space</span
+        >
+      </button>
+    </div>
+    <button id="__actuality__modelOpener">View In Your Space</button>
+    <div id="__actuality_iframeModal_container">
+      <iframe
+        src="https://actuality.live/share/62c4e64bc8f6ceb8397645a0"
+        frameborder="0"
+        id="iframe"
+      ></iframe>
+    </div>
+    <script>
+      const body = document.querySelector("body");
+      const toggleOverflow = (val) =>
+        (body.style.overflow = val ? "auto" : "hidden");
+      const button1 = document.getElementById("__actuality__modelOpener_1"),
+        button2 = document.getElementById("__actuality__modelOpener_2"),
+        iframeModal_container = document.getElementById(
+          "__actuality_iframeModal_container"
+        ),
+        iframe = document.querySelector("#iframe");
+      [button1, button2].forEach((button) => {
+        button.addEventListener("click", (e) => {
+          iframeModal_container.classList.add("show");
+          toggleOverflow(false);
+        });
+      });
+      window.addEventListener("message", (e) => {
+        console.log("I got message back to hide modal");
+        iframeModal_container.classList.remove("show");
+        toggleOverflow(true);
+      });
+    </script>
+  </body>
+</html>
