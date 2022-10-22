@@ -1,0 +1,17 @@
+.modelContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  place-items: center;
+
+  transform: translateY(-100vh);
+  transition: transform 0.2s;
+}
+.modelContainer.show {
+  transform: translateY(0);
+  display: grid;
+  /* transition: transform 0.2s; */
+}

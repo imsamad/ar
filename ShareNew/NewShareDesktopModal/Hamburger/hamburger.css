@@ -1,0 +1,28 @@
+.hamburger {
+  position: relative;
+}
+/* .hamburgerContent > * {
+  background: #fff;
+} */
+
+.hamburgerContent {
+  position: absolute;
+  border-radius: 0.3rem;
+  background: #fff;
+  /* top: 105%; */
+  top: 0;
+  right: 0;
+  /* left: 100%; */
+  /* padding: 0.5rem; */
+  transform-origin: right top;
+  transform: scale(0);
+  transition: transform 0.3s;
+  /* border: 1px solid #ddd; */
+  background-color: transparent;
+  width: 250px;
+  /* padding-right: 1rem; */
+}
+
+.hamburger.open .hamburgerContent {
+  transform: scale(1);
+}
