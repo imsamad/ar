@@ -15,18 +15,54 @@
     }
     .box {
       width: 100vw;
-      height: 100vh;
+      /* height: var(--app-height); */
+      max-height: var(--app-height);
+      min-height: var(--app-height);
       border: 8px solid red;
+      position: relative;
+      /* overflow: hidden; */
     }
-    @media screen and (min-width: 360px) {
-      .box {
-        width: 100vw;
-        height: 92vh;
-      }
+
+    .innerBox {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      /* max-height: 300px; */
+      border: 1px solid green;
+
+      /* display: grid;
+
+      place-items: center; */
+    }
+    .iframeBox {
+      width: 400px;
+      height: 400px;
+      border: 1px solid green;
     }
   </style>
 
   <body>
-    <div class="box"></div>
+    <div class="box" id="box">
+      <iframe
+        src="https://actuality.live/sharear/62c4e64bc8f6ceb8397645a0"
+        frameborder="0"
+      ></iframe>
+      <!-- <div class="innerBox"> -->
+      <!-- <div class="iframeBox">
+          <iframe
+            src="https://actuality.live/sharear/62c4e64bc8f6ceb8397645a0"
+            frameborder="0"
+          ></iframe> -->
+      <!-- </div> -->
+    </div>
+    <script>
+      const box = document.getElementById("box");
+
+      window.addEventListener("load", () => {
+        box.style.setProperty("--app-height", `${window.innerHeight}px`);
+      });
+    </script>
   </body>
 </html>
