@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #demo {
+        /* max-width: 400px; */
+        max-height: 400px;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <button onclick="getGeo()">Get Geo</button>
+    <h1 id="demo"></h1>
+    <script>
+      var x = document.getElementById("demo");
+      function getGeo2() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+      function showPosition(position) {
+        x.innerHTML =
+          "Latitude: " +
+          position.coords.latitude +
+          "<br>Longitude: " +
+          position.coords.longitude;
+      }
+      function getGeo() {
+        fetch("https://ipapi.co/json")
+          .then((response) => response.json())
+          .then((data) => {
+            x.innerHTML = JSON.stringify(data, null, 4);
+          })
+          .catch((e) => {
+            x.innerHTML = JSON.stringify(e.response, null, 4);
+            console.log("err", e);
+          });
+      }
+    </script>
+  </body>
+</html>
