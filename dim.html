@@ -53,6 +53,7 @@
         transform: translate3d(-50%, -50%, 0);
         pointer-events: none;
         --min-hotspot-opacity: 0;
+        /* border: 2px solid red; */
       }
 
       @media only screen and (max-width: 800px) {
@@ -268,50 +269,45 @@
       modelViewer.addEventListener('camera-change', renderSVG);
 
       modelViewer.addEventListener('load', () => {
+        console.log('first');
         const center = modelViewer.getBoundingBoxCenter();
         const size = modelViewer.getDimensions();
+        console.log({ center, size });
         const x2 = size.x / 2;
         const y2 = size.y / 2;
         const z2 = size.z / 2;
-
+        const plusXSize = center.x + x2;
+        const minusYSize = center.y - y2;
+        const plusZSize = center.z + z2;
         modelViewer.updateHotspot({
           name: 'hotspot-dot+X-Y+Z',
-          position: `${center.x + x2} ${center.y - y2} ${center.z + z2}`,
+          position: `${plusXSize} ${minusYSize} ${plusZSize}`,
         });
 
         modelViewer.updateHotspot({
           name: 'hotspot-dim+X-Y',
-          position: `${center.x + x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`,
+          position: `${plusXSize * 1.2} ${minusYSize * 1.1} ${center.z}`,
         });
-        modelViewer.querySelector(
-          'button[slot="hotspot-dim+X-Y"]'
-        ).textContent = `${(size.z * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
           name: 'hotspot-dot+X-Y-Z',
-          position: `${center.x + x2} ${center.y - y2} ${center.z - z2}`,
+          position: `${plusXSize} ${minusYSize} ${center.z - z2}`,
         });
 
         modelViewer.updateHotspot({
           name: 'hotspot-dim+X-Z',
-          position: `${center.x + x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`,
+          position: `${plusXSize * 1.2} ${center.y} ${center.z - z2 * 1.2}`,
         });
-        modelViewer.querySelector(
-          'button[slot="hotspot-dim+X-Z"]'
-        ).textContent = `${(size.y * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
           name: 'hotspot-dot+X+Y-Z',
-          position: `${center.x + x2} ${center.y + y2} ${center.z - z2}`,
+          position: `${plusXSize} ${center.y + y2} ${center.z - z2}`,
         });
 
         modelViewer.updateHotspot({
           name: 'hotspot-dim+Y-Z',
           position: `${center.x} ${center.y + y2 * 1.1} ${center.z - z2 * 1.1}`,
         });
-        modelViewer.querySelector(
-          'button[slot="hotspot-dim+Y-Z"]'
-        ).textContent = `${(size.x * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
           name: 'hotspot-dot-X+Y-Z',
@@ -322,27 +318,40 @@
           name: 'hotspot-dim-X-Z',
           position: `${center.x - x2 * 1.2} ${center.y} ${center.z - z2 * 1.2}`,
         });
-        modelViewer.querySelector(
-          'button[slot="hotspot-dim-X-Z"]'
-        ).textContent = `${(size.y * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
           name: 'hotspot-dot-X-Y-Z',
-          position: `${center.x - x2} ${center.y - y2} ${center.z - z2}`,
+          position: `${center.x - x2} ${minusYSize} ${center.z - z2}`,
         });
 
         modelViewer.updateHotspot({
           name: 'hotspot-dim-X-Y',
-          position: `${center.x - x2 * 1.2} ${center.y - y2 * 1.1} ${center.z}`,
+          position: `${center.x - x2 * 1.2} ${minusYSize * 1.1} ${center.z}`,
         });
-        modelViewer.querySelector(
-          'button[slot="hotspot-dim-X-Y"]'
-        ).textContent = `${(size.z * 100).toFixed(0)} cm`;
 
         modelViewer.updateHotspot({
           name: 'hotspot-dot-X-Y+Z',
-          position: `${center.x - x2} ${center.y - y2} ${center.z + z2}`,
+          position: `${center.x - x2} ${minusYSize} ${plusZSize}`,
         });
+        modelViewer.querySelector(
+          'button[slot="hotspot-dim+X-Y"]'
+        ).textContent = 'A' + ` => ${(size.z * 100).toFixed(0)} cm`;
+
+        modelViewer.querySelector(
+          'button[slot="hotspot-dim+X-Z"]'
+        ).textContent = 'B' + ` => ${(size.y * 100).toFixed(0)} cm`;
+
+        modelViewer.querySelector(
+          'button[slot="hotspot-dim+Y-Z"]'
+        ).textContent = 'C' + ` => ${(size.x * 100).toFixed(0)} cm`;
+
+        modelViewer.querySelector(
+          'button[slot="hotspot-dim-X-Z"]'
+        ).textContent = 'D' + ` => ${(size.y * 100).toFixed(0)} cm`;
+
+        modelViewer.querySelector(
+          'button[slot="hotspot-dim-X-Y"]'
+        ).textContent = 'E' + ` => ${(size.z * 100).toFixed(0)} cm`;
 
         renderSVG();
       });
