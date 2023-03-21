@@ -8,10 +8,154 @@
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <link
-      rel="stylesheet"
-      href="https://beta.actuality.live/cdn/sharear/style.css"
-    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;400;600&display=swap");
+      .allZIndexZero,
+      .allZIndexZero * {
+        z-index: 0 !important;
+      }
+      #__actuality_model_container {
+        max-width: 100vw;
+        width: 100vw;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        display: grid;
+        place-items: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 100ms;
+        max-height: var(--app-height) !important;
+        min-height: var(--app-height) !important;
+      }
+      #__actuality_model_container,
+      #__actuality_model_container * {
+        font-family: "Inter", sans-serif !important;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box !important;
+        text-align: center !important;
+        line-height: 1 !important;
+        z-index: 2147483647 !important;
+      }
+      #__actuality_model_container.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      #__actuality_model {
+        max-width: 315px;
+        background-color: #fff;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 30px;
+      }
+      #__actuality_model * {
+        background: white;
+      }
+      #__actuality_model_container #__actuality_model h1 {
+        /* padding: 10px; */
+        font-weight: 800;
+        font-size: 22px;
+        color: #2d3436;
+        margin-bottom: 0.6rem;
+      }
+      #__actuality_model_container #__actuality_model p {
+        font-weight: 400;
+        font-size: 18px;
+        color: #2d3436;
+        margin-bottom: 0.6em;
+        line-height: 1.2;
+      }
+      #__actuality_model_container #__actuality_closeModal_btn {
+        font-weight: 400;
+        font-size: 18px;
+        color: #000;
+        align-self: stretch;
+        padding: 0.65rem;
+        border-radius: 0.5rem;
+        background-color: #fff;
+        display: grid;
+        place-content: center;
+        border: 1.5px solid rgba(0, 0, 0, 0.5);
+        outline: none;
+      }
+      #__actuality__model__qr_code {
+        margin: 15px 0;
+        flex: 1;
+      }
+      #__actuality__model__qr_code img {
+        width: 100%;
+        height: 100%;
+      }
+      #__actuality__modelOpener {
+        padding: 1rem 2rem;
+        border-radius: 0.3rem;
+        border: 0;
+        outline: none;
+        color: #000;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        display: grid;
+        font-family: Inter, sans-serif !important;
+        place-items: center;
+        margin: auto;
+        cursor: pointer;
+        transition: all 0.3s;
+        background: #bdbdbd;
+        border-radius: 5px;
+        box-shadow: 0 8px 24px rgb(38 50 56 / 10%),
+          0 16px 32px rgb(38 50 56 / 8%) !important;
+        color: #fff !important;
+        font-weight: 700;
+        letter-spacing: 0.25px;
+        line-height: 36px;
+      }
+      #__actuality_iframeModal_container {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        max-width: 100vw;
+        width: 100vw;
+        overflow: hidden;
+        transform-origin: center;
+        transition: transform 0.5s;
+        border: 0px solid red;
+        transform: scale(0);
+        opacity: 0;
+        z-index: 0;
+        transition: opacity 100ms;
+        display: none;
+        max-height: var(--app-height) !important;
+        min-height: var(--app-height) !important;
+      }
+      #__actuality_iframeModal_container.show {
+        display: block;
+        transform: scale(1);
+        z-index: 2147483647;
+        opacity: 1;
+      }
+      body #__actuality_iframeModal_container.show {
+        overflow: hidden;
+      }
+      #__actuality_iframeModal_container iframe {
+        border: 0;
+        outline: none;
+        width: 100%;
+        height: 100%;
+      }
+      button {
+        cursor: pointer;
+      }
+    </style>
     <div
       id="__actuality_model_div"
       data-product="63c15da7308586c294b7eae3"
@@ -20,6 +164,155 @@
       defer
       src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
     ></script>
-    <script defer src="https://beta.actuality.live/cdn/sharear/js.js"></script>
+    <script>
+      window.addEventListener("load", () => {
+        const __actuality_model_div = document.getElementById(
+          "__actuality_model_div"
+        );
+        const productId = __actuality_model_div?.dataset?.product;
+        if (!__actuality_model_div || !productId) return;
+
+        var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        const qrModel = `<div id="__actuality_model_container">
+                  <div id="__actuality_model">
+                    <h1 style="margin-bottom: 0">How to View in</h1>
+                    <h1>Augmented Reality</h1>
+                    <p style="margin-bottom: 0">
+                      Scan this QR code with your phone to view the object in your
+                      space. The experience launches directly from your browser - no
+                      app required !
+                    </p>
+                    <p style="margin-top: 10px">
+                      * Works best with
+                      <a
+                        href="https://arcade.ltd/is-my-device-ar-compatible/"
+                        target="_blank"
+                      >
+                        these&nbsp;devices
+                      </a>
+                    </p>
+                    <div id="__actuality__model__qr_code"></div>
+                    <button id="__actuality_closeModal_btn">Close</button>
+                  </div>
+                </div>`;
+        const model_iframe = `<div id="__actuality_iframeModal_container">
+        <iframe
+          src="https://beta.actuality.live/sharear/${productId}"
+          frameborder="0"
+          id="__actuality_Iframe"
+        ></iframe>
+      </div>`;
+        let temp = isMobile ? model_iframe : qrModel;
+        __actuality_model_div.innerHTML = `<button
+          id="__actuality__modelOpener_btn"
+          style="
+            border: 0;
+            outline: none;
+            border-radius: 7.5px;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          "
+        >
+          <img
+            src="https://beta.actuality.live/icons/viewInAR.png"
+            height="30"
+            width="30"
+            alt=""
+          />
+          <span
+            style="
+              margin-left: 10px;
+              font-size: 18px;
+              font-weight: 500;
+              color: #2e2e2e;
+            "
+            >View in AR</span>
+        </button>
+      ${temp}
+      `;
+
+        const iframeModal_container = document.getElementById(
+            "__actuality_iframeModal_container"
+          ),
+          body = document.querySelector("body"),
+          __actuality_model_container = document.getElementById(
+            "__actuality_model_container"
+          ),
+          __actuality_closeModal_btn = document.getElementById(
+            "__actuality_closeModal_btn"
+          ),
+          __actuality__modelOpener_btn = document.getElementById(
+            "__actuality__modelOpener_btn"
+          ),
+          __actuality_Iframe = document.querySelector("#__actuality_Iframe");
+
+        function generate() {
+          var qrcode = new QRCode(
+            document.getElementById("__actuality__model__qr_code"),
+            {
+              text: "https://beta.actuality.live/sharear/" + productId,
+              width: 200,
+              height: 200,
+            }
+          );
+          __actuality_closeModal_btn.addEventListener("click", (e) => {
+            closeQRPopUp();
+          });
+        }
+
+        var isIOS = () =>
+          /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+        const toggleZIndex = (add = false) => {
+          add
+            ? body.classList.add("allZIndexZero")
+            : body.classList.remove("allZIndexZero");
+        };
+
+        const toggleOverflow = (val) =>
+          (body.style.overflow = val ? "auto" : "hidden");
+
+        const containerHeight = () => {
+          if (isMobile) return;
+          iframeModal_container?.style?.setProperty(
+            "--app-height",
+            isIOS() ? "-webkit-fill-available" : window.innerHeight + "px"
+          );
+        };
+        window.addEventListener("resize", containerHeight);
+        containerHeight();
+
+        const openQRPopUp = () => {
+          __actuality_model_container.classList.add("show");
+          toggleZIndex(true);
+        };
+
+        const closeQRPopUp = () => {
+          __actuality_model_container.classList.remove("show");
+          toggleZIndex(false);
+        };
+
+        if (!isMobile) {
+          generate();
+        }
+
+        __actuality__modelOpener_btn.addEventListener("click", (e) => {
+          if (!isMobile) {
+            openQRPopUp();
+            return;
+          }
+          iframeModal_container.classList.add("show");
+          toggleOverflow(false);
+        });
+
+        window.addEventListener("message", (e) => {
+          iframeModal_container.classList.remove("show");
+          toggleOverflow(true);
+        });
+      });
+    </script>
   </body>
 </html>
